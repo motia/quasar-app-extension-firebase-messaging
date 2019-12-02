@@ -1,7 +1,7 @@
 {
   "name": "quasar-app-extension-firebase-messaging",
   "version": "0.0.1",
-  "description": "A Quasar App Extension",
+  "description": "Sets up FCM service worker for quasar applications",
   "author": "Mouti'a Benachour <motie.benachour@gmail.com>",
   "license": "MIT",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/motia/quasar-app-extension-firebase-messaging"
   },
   "bugs": "",
   "homepage": "",

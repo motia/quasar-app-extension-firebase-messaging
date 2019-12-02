@@ -1,32 +1,41 @@
-Quasar App Extension Title <- change name
+Quasar Firebase Messaging App Extension
 ===
-
-_Be sure to change this readme as appropriate for your app extension._
-
-_Think about the organization of this file and how the information will be beneficial to the user._
-
-> Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
 
 # Install
 ```bash
-quasar ext add my-ext <- change name
-```
-Quasar CLI will retrieve it from NPM and install the extension.
-
-## Prompts
-
-> If your app extension uses prompts, explain them here, otherwise remove this section.
-
-# Uninstall
-```bash
-quasar ext remove my-ext <- change name
+yarn add firebase
+yarn add https://github.com/motia/quasar-app-extension-firebase-messaging
+quasar ext invoke firebase-messaging
 ```
 
-# Info
-> Add longer information here that will help the user of your app extension.
+# Setup
+Create a file named `firebase-messaging-sw.js` in `src-pwa`
+The package will concatenate the firebase imports at its start
 
-# Other Info
-> Add other information that's not as important to know
+```js
+firebase.initializeApp({...});
 
-# Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
+const messaging = firebase.messaging();
+
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  const notificationTitle = 'Background Message Title';
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/firebase-logo.png'
+  };
+
+  return self.registration.showNotification(notificationTitle,
+    notificationOptions);
+});
+```
+
+Also, make the entry `firebase-messaging-sw.js` the entry service worker for your pwa
+```js
+// replace line
+register(process.env.SERVICE_WORKER_FILE, {
+--->
+// by
+register('firebase-messaging-sw.js', {
+```
