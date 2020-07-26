@@ -34,11 +34,12 @@ function swTransformer(mode, path, content, userSWFilePath) {
 
 const extendWebpackForWeb = function (conf, mode, appDir) {
   const CopyPlugin = require('copy-webpack-plugin')
+  const copyPluginVersion = require('copy-webpack-plugin/package.json').version;
 
   console.log(` App Extension (firebase): Configure webpack to copy service workers to root directory`)
   const userSWFilePath = path.join(appDir, 'src-pwa', 'firebase-messaging-sw.js')
 
-  conf.plugins.push(new CopyPlugin([
+  const copyPluginPatternOptions =  [
     {
       from: path.join(__dirname, 'templates', 'firebase-messaging-sw.js'),
       to: '.',
@@ -49,11 +50,19 @@ const extendWebpackForWeb = function (conf, mode, appDir) {
           userSWFilePath
       )
     }
-  ]))
+  ];
+
+  if (parseInt(copyPluginVersion) >= 6) {
+    copyPlugin = new CopyPlugin({ patterns: copyPluginPatternOptions });
+  } else {
+    copyPlugin = new CopyPlugin(copyPluginPatternOptions);
+
+  }
+  conf.plugins.push(copyPlugin)
 }
 
 module.exports = function (api) {
-  api.compatibleWith('@quasar/app', '^1.0.0')
+  api.compatibleWith('@quasar/app', '^1.0.0 || ^2.0.0')
 
   const modeName = api.ctx.modeName
   const appDir = api.appDir

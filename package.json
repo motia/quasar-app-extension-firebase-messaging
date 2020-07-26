@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-firebase-messaging",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Sets up FCM service worker for quasar applications",
   "author": "Mouti'a Benachour <motie.benachour@gmail.com>",
   "license": "MIT",
@@ -10,13 +10,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/motia/quasar-app-extension-firebase-messaging"
+    "url": "git+https://github.com/motia/quasar-app-extension-firebase-messaging.git"
   },
-  "bugs": "",
-  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/motia/quasar-app-extension-firebase-messaging/issues"
+  },
+  "homepage": "https://github.com/motia/quasar-app-extension-firebase-messaging#readme",
   "engines": {
     "node": ">= 8.9.0",
     "npm": ">= 5.6.0",
     "yarn": ">= 1.6.0"
-  }
+  },
+  "keywords": [
+    "firebase-messaging",
+    "quasar",
+    "quasar-framework",
+    "pwa",
+    "FCM",
+    "firebase",
+    "push-notifications",
+    "vue",
+    "vue.js"
+  ]
 }

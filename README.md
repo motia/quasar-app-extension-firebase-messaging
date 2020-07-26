@@ -4,7 +4,7 @@ Quasar Firebase Messaging App Extension
 # Install
 ```bash
 yarn add firebase
-yarn add https://github.com/motia/quasar-app-extension-firebase-messaging
+yarn add quasar-app-extension-firebase-messaging
 quasar ext invoke firebase-messaging
 ```
 
