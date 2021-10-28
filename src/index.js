@@ -16,15 +16,17 @@ function endsWith(str, suffix) {
 function swTransformer(mode, path, content, userSWFilePath) {
   console.log(path)  
   if (endsWith(path, 'firebase-messaging-sw.js')) {
-      const firebaseVersionInLockFile = require('firebase/package.json').version
-      content = content.replace(/FIREBASE_VERSION/g, firebaseVersionInLockFile)
+      // discard the importScripts of firebase
+
+      // const firebaseVersionInLockFile = require('firebase/package.json').version
+      // content = content.replace(/FIREBASE_VERSION/g, firebaseVersionInLockFile)
 
       // add service worker for pwa mode
-      if (mode === 'pwa') {
-        const scripts = []
-        scripts.unshift('/service-worker.js?' + Date.now())
-        content += `importScripts(${scripts.map(i => `'${i}'`).join(', ')})\r\n`;
-      }
+      // if (mode === 'pwa') {
+      //   const scripts = []
+      //   scripts.unshift('/service-worker.js?' + Date.now())
+      //   content += `importScripts(${scripts.map(i => `'${i}'`).join(', ')})\r\n`;
+      // }
 
       content += fs.readFileSync(userSWFilePath).toString()
     }
@@ -62,7 +64,8 @@ const extendWebpackForWeb = function (conf, mode, appDir) {
 }
 
 module.exports = function (api) {
-  api.compatibleWith('@quasar/app', '^1.0.0 || ^2.0.0')
+  // include @quasar/app 3.0.0
+  api.compatibleWith('@quasar/app', '^1.0.0 || ^2.0.0 || ^3.0.0')
 
   const modeName = api.ctx.modeName
   const appDir = api.appDir
